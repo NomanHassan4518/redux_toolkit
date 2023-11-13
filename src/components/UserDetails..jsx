@@ -1,24 +1,32 @@
 import React from "react";
 import { DeleteAllUser } from "./DeleteAllUser";
 import styled from "styled-components";
+import { fakeUser } from '../api/index'
+import { addUser } from "../Store/Slice/UserSlice";
+import { useDispatch } from "react-redux";
+import DisplayUser from "./DisplayUser";
 
 const UserDetails = () => {
-  return (
-    <Wrapper>
-      <div className="content">
-        <div className="admin-table">
-          <div className="admin-subtitle">List of User Details</div>
-          <button className="btn add-btn">Add New Users</button>
-        </div>
-        <ul>
-          {/* <li>Hi</li>
-          <li>Hii</li> */}
-        </ul>
-        <hr />
-        <DeleteAllUser />
-      </div>
-    </Wrapper>
-  );
+  let dispatch = useDispatch();
+    const addNewUser = (userName) => {
+        // console.log(userName, "User Name");
+        dispatch(addUser(userName))
+    };
+    return (
+        <Wrapper>
+            <div className="content">
+                <div className="admin-table">
+                    <div className="admin-subtitle">List of User Details</div>
+                    <button className="btn add-btn" onClick={() => addNewUser(fakeUser())}>Add New Users</button>
+                </div>
+                <ul>
+                    <DisplayUser/>
+                </ul>
+                <hr />
+                <DeleteAllUser />
+            </div>
+        </Wrapper>
+    );
 };
 
 const Wrapper = styled.section`
